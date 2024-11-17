@@ -1,11 +1,28 @@
+/* Color and Font Variables */
 :root {
-    --background-color: #000000;
+    --background-color: rgb(0, 0, 0);
     --face-color: #ffffff;
     --number-color: #303030;
     --hand-color: #000000;
     --second-hand-color: #e9b300;
+    --number-font: "Rubik";
+    --minor-tick-color: #90909c;
+    --major-tick-color: #000000;
 }
 
+/* Dark Mode Colors */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #000;
+        --face-color: #1c1d24;
+        --number-color: #efefef;
+        --hand-color: #ffffff;
+        --minor-tick-color: #484a54;
+        --major-tick-color: #efefef;
+    }
+}
+
+/* General Properties */
 body {
     padding: 0px;
     margin: 0px;
@@ -20,34 +37,58 @@ body {
     
 }
 
+/* Clock Face */
 .clock {
     position: relative;
-    width: 300px;
-    height: 300px;
-    /* max-width: 800px;
-    max-height: 800px;
-    width: 80vw;
-    height: 80vw; */
+    margin: auto;
+    width: min(90vw, 90vh); /* Clock size constrained to fit the screen */
+    height: min(90vw, 90vh); /* Ensures it's a perfect circle */
+    border: 5px solid #000000;
     background: var(--face-color);
-    transform: scale(250%);
     border-radius: 50%;
-    
 }
 
+/* Tick Marks */
+.tick {
+    width: 0.75%;
+    height: 3%;
+    border-radius: 0.5em;
+    background: var(--minor-tick-color);
+    position: absolute;
+    top: 47%;
+    left: 49.625%;
+    transform-origin: center bottom;
+    transform: rotate(calc(var(--i) * 6deg + 18deg)) translateY(-1525%);
+    z-index: 1;
+}
+
+/* Major Tick Marks */
+.tick:nth-child(5n) {
+    width: 1%;
+    height: 4%; /* Longer for hour marks */
+    background: var(--major-tick-color);
+    top: 46%;
+    left: 49.5%;
+    transform: rotate(calc(var(--i) * 6deg + 18deg)) translateY(-1122%);
+}
+
+/* Numbers */
 .clock .number {
     position: absolute;
-    /* font-family: "Varela Round", sans-serif;
-    font-weight: bold;
-    font-size: 35px; */
-    font-family: "Rubik", sans-serif;
-    font-size: 40px;
+    font-family: var(--number-font), sans-serif;
+    font-size: min(12vw, 12vh);
     font-weight: 600; /* font-weight: Use a value from 300 to 900 */
     color: var(--number-color);
-    inset: 2%;
-    width: 96%;
-    height: 96%;
+    inset: 5%;
+    width: 90%;
+    height: 90%;
     text-align: center;
     transform: rotate(calc(30deg * var(--number)));
+    z-index: 2;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .clock .one {--number: 1;}
@@ -66,6 +107,7 @@ body {
     transform: rotate(calc(-30deg * var(--number)));
 }
 
+/* Hands */
 .clock .hand {
     --rotation: 0;
     position: absolute;
@@ -73,68 +115,213 @@ body {
     left: 50%;
     transform-origin: bottom;
     transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
-    /* z-index: 10; */
-    border-radius: 6px;
+    border-radius: 25px;
+    z-index: 3;
 }
 
 .clock .hand.second {
-    width: 3px;
-    height: 47%;
+    width: 1%;
+    height: 48.5%;
     transform-origin: bottom;
     transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
     background-color: var(--second-hand-color);
+    z-index: 4;
+    box-shadow: 0 0 12px #0000003e;
 }
 
 .clock .hand.second-end {
-    width: 3px;
+    width: 1%;
     height: 8%;
     transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg + 180deg));
     transform-origin: bottom;
     background-color: var(--second-hand-color);
+    z-index: 4;
+    box-shadow: 0 0 12px #0000003e;
 }
 
 .clock .hand.minute {
-    width: 12px;
-    height: 47%;
+    width: 4%;
+    height: 47.75%;
     background-color: var(--hand-color);
+    box-shadow: 0 0 5px #0000003e;
 }
 
 .clock .hand.hour {
-    width: 12px;
+    width: 4%;
     height: 32%;
-    background-color: var(--hand-color);}
+    background-color: var(--hand-color);
+    box-shadow: 0 0 5px #0000003e;
+}
 
-.black-axle {
+/* Axle */
+.axle {
     content: "";
     position: absolute;
-    background-color: var(--hand-color);    width: 20px;
-    height: 20px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
+    z-index: 4;
 }
 
-.red-axle {
-    content: "";
-    position: absolute;
+.axle.black {
+    background-color: var(--hand-color);
+    width: 6%;
+    height: 6%;
+}
+
+.axle.red {
     background-color: var(--second-hand-color);
-    width: 13px;
-    height: 13px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
+    width: 4%;
+    height: 4%;
 }
 
-.red-axle::after {
+.axle.white {
+    background-color: var(--face-color);
+    width: 2.25%;
+    height: 2.25%;
+    z-index: 5;
+}
+
+/* Preferences Popup Modal */
+/* .modal {
+    background-color: rgba(28, 28, 30, 0.6);
+    backdrop-filter: blur(15px);
+    color: #ffffff;
+    font-family: var(--number-font), sans-serif;
+    border-radius: 10px;
+    border: none;
+    padding: 0px;
+    box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.7);
+} */
+
+.modal {
+    --modal-position: 0px;
+    margin-right: var(--modal-position);
+    margin-top: 0px;
+    height: 100vh;
+    background-color: rgb(18, 18, 18);
+    color: #ffffff;
+    font-family: var(--number-font), sans-serif;
+    border: none;
+    padding: 19px;
+    /* box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.7); */
+}
+
+.modal-header {
+    font-size: 40px;
+    font-weight: 500;
+    display: flex;
+    padding: 10px 90px 10px 30px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-header-text {
+    position: relative;
+    text-align: center;
+    padding: 5px;
+}
+
+.modal-content {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#preferences-button-position {
+    top: 40px;
+    right: 40px;
+    position: absolute;
+}
+
+.preferences-button {
+    /* align-items: right;
+    justify-content: right; */
+    background-color: transparent;
+    fill: #ffffff;
+    border: none;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    padding: 15px;
+}
+
+.preferences-button:hover {
+    background-color: rgb(28, 28, 30);
+    cursor: pointer;
+}
+
+.preferences-button:active {
+    fill: rgba(255, 255, 255, 0.5);
+}
+
+
+
+.exit-modal {
+    background-color: transparent;
+    fill: #ffffff;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.exit-modal:hover {
+    background-color: rgb(38, 38, 40);
+    cursor: pointer;
+}
+
+.exit-modal:active {
+    fill: rgba(255, 255, 255, 0.5);
+}
+
+
+
+.tooltip {
+    display: inline-block;
+    
+}
+  
+.tooltip .tooltiptext {
+    font-family: var(--number-font), sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(28, 28, 30);
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    margin-left: -60px;
+    transition: visibility 0s;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+  
+.tooltip .tooltiptext::after {
     content: "";
     position: absolute;
-    background-color: var(--face-color);
-    width: 7px;
-    height: 7px;
-    top: 50%;
+    bottom: 100%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent rgb(28, 28, 30) transparent;
+}
+  
+.tooltip:hover .tooltiptext {
+    transition-delay: 0.6s;
+    visibility: visible;
 }
