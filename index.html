@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet">
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">     -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -26,13 +23,53 @@
         <div class="number ten"><div class="numeral">10</div></div>
         <div class="number eleven"><div class="numeral">11</div></div>
         <div class="number twelve"><div class="numeral">12</div></div>
-        <div class="black-axle"></div>
+        <div class="axle black"></div>
         <div class="hand hour" data-hour-hand></div>
         <div class="hand minute" data-minute-hand></div>
-        <div class="hand second" data-second-hand></div>
-        <div class="hand second-end" data-second-end-hand></div>
-        <div class="red-axle"></div>
+        <div class="second-hand-shadow">
+            <div class="hand second" data-second-hand></div>
+            <div class="hand second-end" data-second-end-hand></div>
+            <div class="axle red"></div>
+        </div>
+        <div class="axle white"></div>
     </div>
+    <div id="preferences-button-position" class="tooltip">
+        <button data-open-preferences class="preferences-button">
+            <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24">
+                <path d="M1,4.75H3.736a3.728,3.728,0,0,0,7.195,0H23a1,1,0,0,0,0-2H10.931a3.728,3.728,0,0,0-7.195,0H1a1,1,0,0,0,0,2ZM7.333,2a1.75,1.75,0,1,1-1.75,1.75A1.752,1.752,0,0,1,7.333,2Z"/>
+                <path d="M23,11H20.264a3.727,3.727,0,0,0-7.194,0H1a1,1,0,0,0,0,2H13.07a3.727,3.727,0,0,0,7.194,0H23a1,1,0,0,0,0-2Zm-6.333,2.75A1.75,1.75,0,1,1,18.417,12,1.752,1.752,0,0,1,16.667,13.75Z"/>
+                <path d="M23,19.25H10.931a3.728,3.728,0,0,0-7.195,0H1a1,1,0,0,0,0,2H3.736a3.728,3.728,0,0,0,7.195,0H23a1,1,0,0,0,0-2ZM7.333,22a1.75,1.75,0,1,1,1.75-1.75A1.753,1.753,0,0,1,7.333,22Z"/>
+            </svg>
+        </button>
+        <span class="tooltiptext">Preferences</span>
+    </div>  
+    <dialog data-preferences-modal class="modal">
+        <div class="modal-header">
+            <button data-close-preferences class="exit-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Filled" viewBox="0 0 24 24">
+                    <path d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
+                </svg>
+            </button>
+            <div class="modal-header-text">Preferences</div>
+        </div>
+        <div class="modal-content">
+            <legend>Select a style:</legend>
+            <div>
+                <input type="radio" id="clean" name="style" value="clean" checked />
+                <label for="clean">Clean</label>
+            </div>
+            
+            <div>
+                <input type="radio" id="classic" name="style" value="classic" />
+                <label for="classic">Classic</label>
+            </div>
+            
+            <div>
+                <input type="radio" id="night" name="style" value="night" />
+                <label for="night">Night</label>
+            </div>
+        </div>
+    </dialog>
     <script src="js/script.js" defer></script>
 </body>
 </html>
