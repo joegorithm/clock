@@ -1,3 +1,10 @@
+/* Debugging tool */
+/* *,
+*::before,
+*::after {
+    outline: 1px dashed rgb(0, 255, 0);
+} */
+
 /* Color and Font Variables */
 :root {
     --background-color: #000000;
@@ -334,8 +341,23 @@ body {
     font-weight: 300;
     line-height: 25px;
     transition: opacity 0.3s ease;
+    filter: blur(4px);
+
+    /* Temporary - block selecting */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 #preferences-modal.active .modal-content {
     opacity: 1; /* Fade in when modal is fully expanded */
+}
+
+#coming-soon-label {
+    position: relative;
+    top: -130px;
+    font-weight: 400;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    text-shadow: rgb(255, 0, 0) 0 0 20px, rgb(0, 0, 0) 2px 2px 4px;
 }
