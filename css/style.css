@@ -1,6 +1,6 @@
 /* Color and Font Variables */
 :root {
-    --background-color: rgb(0, 0, 0);
+    --background-color: #000000;
     --face-color: #ffffff;
     --number-color: #303030;
     --hand-color: #000000;
@@ -34,7 +34,6 @@ body {
     min-height: 100vh;
     overflow: hidden;
     background: var(--background-color);
-    
 }
 
 /* Clock Face */
@@ -183,108 +182,9 @@ body {
     z-index: 5;
 }
 
-/* Preferences Popup Modal */
-/* .modal {
-    background-color: rgba(28, 28, 30, 0.6);
-    backdrop-filter: blur(15px);
-    color: #ffffff;
-    font-family: var(--number-font), sans-serif;
-    border-radius: 10px;
-    border: none;
-    padding: 0px;
-    box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.7);
-} */
-
-.modal {
-    --modal-position: 0px;
-    margin-right: var(--modal-position);
-    margin-top: 0px;
-    height: 100vh;
-    background-color: rgb(18, 18, 18);
-    color: #ffffff;
-    font-family: var(--number-font), sans-serif;
-    border: none;
-    padding: 19px;
-    /* box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.7); */
-}
-
-.modal-header {
-    font-size: 40px;
-    font-weight: 500;
-    display: flex;
-    padding: 10px 90px 10px 30px;
-    border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
-}
-
-.modal-header-text {
-    position: relative;
-    text-align: center;
-    padding: 5px;
-}
-
-.modal-content {
-    padding: 20px;
-    font-size: 20px;
-    font-weight: 300;
-}
-
-.modal::backdrop {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-#preferences-button-position {
-    top: 40px;
-    right: 40px;
-    position: absolute;
-}
-
-.preferences-button {
-    /* align-items: right;
-    justify-content: right; */
-    background-color: transparent;
-    fill: #ffffff;
-    border: none;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    padding: 15px;
-}
-
-.preferences-button:hover {
-    background-color: rgb(28, 28, 30);
-    cursor: pointer;
-}
-
-.preferences-button:active {
-    fill: rgba(255, 255, 255, 0.5);
-}
-
-
-
-.exit-modal {
-    background-color: transparent;
-    fill: #ffffff;
-    border: none;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    padding: 5px;
-}
-
-.exit-modal:hover {
-    background-color: rgb(38, 38, 40);
-    cursor: pointer;
-}
-
-.exit-modal:active {
-    fill: rgba(255, 255, 255, 0.5);
-}
-
-
-
 .tooltip {
     display: inline-block;
-    
+    position: relative;
 }
   
 .tooltip .tooltiptext {
@@ -293,7 +193,7 @@ body {
     font-weight: 400;
     visibility: hidden;
     width: 120px;
-    background-color: rgb(28, 28, 30);
+    background-color: #1c1d24;
     color: #ffffff;
     text-align: center;
     border-radius: 6px;
@@ -303,7 +203,7 @@ body {
     top: 125%;
     left: 50%;
     margin-left: -60px;
-    transition: visibility 0s;
+    /* transition: visibility 0s; */
 
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
@@ -318,10 +218,124 @@ body {
     margin-left: -8px;
     border-width: 8px;
     border-style: solid;
-    border-color: transparent transparent rgb(28, 28, 30) transparent;
+    border-color: transparent transparent #1c1d24 transparent;
 }
   
 .tooltip:hover .tooltiptext {
     transition-delay: 0.6s;
     visibility: visible;
+}
+
+.tooltip.no-hover:hover .tooltiptext {
+    transition-delay: 0s;
+    visibility: hidden;
+}
+
+
+
+
+
+/* Preferences Button */
+#preferences-button-container {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 7;
+}
+
+#preferences-button {
+    background-color: transparent;
+    fill:#ffffff;
+    border: none;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 15px;
+}
+  
+#preferences-button:hover,
+#preferences-button:focus {
+    background-color: #1c1d24;
+}
+
+#preferences-button:active {
+    fill: rgba(255, 255, 255, 0.75);
+}
+
+#preferences-symbol {
+    display: block;
+}
+
+#preferences-symbol.active {
+    display: none;
+}
+
+#exit-symbol {
+    display: none;
+}
+
+#exit-symbol.active {
+    display: block;
+}
+
+
+
+/* Modal */
+#preferences-modal {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 70px; /* Start with button dimensions */
+    height: 70px; /* Start with button dimensions */
+    background-color: #1c1d24;
+    font-family: var(--number-font), sans-serif;
+    font-size: 0px;
+    color: rgba(255, 255, 255, 0);
+    box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 35px; /* Match button */
+    transition: top, right, width, height, border-radius, font-size, color, 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1);
+    /* transition: width 0.5s ease, height 0.5s ease, color 0.5s ease, font-size 0.5s ease, box-shadow 0.5s ease, visibility 0.5s ease, opacity 0.5s ease, top 0.5s ease, right 0.5s ease, border-radius 0.5s ease; */
+    overflow: hidden; /* Prevent content overflow during animation */
+    visibility: hidden; /* Hidden by default */
+    z-index: 6;
+}
+
+#preferences-modal.active {
+    top: 30px;
+    right: 30px;
+    width: 300px; /* Expanded modal width */
+    height: 500px; /* Expanded modal height */
+    border-radius: 40px;
+    font-size: 30px;
+    color: #ffffff;
+    visibility: visible;
+    /* transition: all 0.5s ease; */
+}
+
+.modal-header {
+    text-align: left;
+    padding: 30px 23px 12px;
+}
+
+.modal-header-text {
+    text-align: left;
+    align-items: left;
+    left: 0px;
+    font-weight: 500;
+    padding: 5px;
+}
+
+/* Modal Content */
+.modal-content {
+    padding: 20px;
+    opacity: 0; /* Hidden during transition */
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 25px;
+    transition: opacity 0.3s ease;
+}
+
+#preferences-modal.active .modal-content {
+    opacity: 1; /* Fade in when modal is fully expanded */
 }
