@@ -18,7 +18,7 @@ function setClock() {
     setRotation(secondEndHand, secondsRatio);
 
     // Set title of webpage to current time
-    document.title = currentDate.getHours().toString() + ":" + currentDate.getMinutes().toString().padStart(2, "0") + ":" + currentDate.getSeconds().toString().padStart(2, "0") + " • Clock"; // might use "⏐" in place of dot
+    document.title = currentDate.getHours().toString() + ":" + currentDate.getMinutes().toString().padStart(2, "0") + ":" + currentDate.getSeconds().toString().padStart(2, "0") + " | Clock | JH.codes";
 }
 
 function setRotation(element, rotationRatio) {
@@ -42,36 +42,44 @@ for (let i = 0; i < 60; i++) {
 
 
 
-// Preferences ----------------------
+const preferencesButton = document.getElementById("preferences-button");
+const preferencesModal = document.getElementById("preferences-modal");
+const closePreferencesButton = document.getElementById("close-preferences-button");
+const preferencesSymbol = document.getElementById("preferences-symbol");
+const exitSymbol = document.getElementById("exit-symbol");
+const tooltipText = document.querySelector(".tooltiptext");
+const tooltip = document.querySelector(".tooltip");
 
-const openPreferencesButton = document.querySelector("[data-open-preferences]");
-const preferencesModal = document.querySelector("[data-preferences-modal]");
-const closePreferencesButton = document.querySelector("[data-close-preferences]");
-
-// const modal = document.querySelector(".modal");
-// const modalPosition = 50;
-// function openModal() {
-//     modalPosition+=50;
-//     modal.style.setProperty("--modal-position", `${modalPosition}px`);
-// }
-
-openPreferencesButton.addEventListener("click", function() {
-    preferencesModal.showModal();
-    // openModal();
+preferencesButton.addEventListener("click", () => {
+  preferencesModal.classList.toggle("active"); // Opens the modal
+  preferencesSymbol.classList.toggle("active");
+  exitSymbol.classList.toggle("active");
+  tooltipText?.classList.toggle("active");
+  tooltip?.classList.toggle("no-hover");
 });
 
-closePreferencesButton.addEventListener("click", function() {
-    preferencesModal.close();
-});
-
-preferencesModal.addEventListener("click", e => {
-    const modalDimensions = preferencesModal.getBoundingClientRect()
-    if (
-      e.clientX < modalDimensions.left ||
-      e.clientX > modalDimensions.right ||
-      e.clientY < modalDimensions.top ||
-      e.clientY > modalDimensions.bottom
-    ) {
-      preferencesModal.close()
+// Closes the modal when clicking outside of it
+document.addEventListener("click", (e) => {
+  const modalDimensions = preferencesModal.getBoundingClientRect();
+  if (
+    !(
+      e.clientX >= modalDimensions.left &&
+      e.clientX <= modalDimensions.right &&
+      e.clientY >= modalDimensions.top &&
+      e.clientY <= modalDimensions.bottom
+    )
+  ) {
+    if (preferencesModal.classList.contains("active")) {
+      preferencesModal.classList.remove("active");
+      preferencesSymbol.classList.remove("active");
+      exitSymbol.classList.remove("active");
+      tooltipText?.classList.remove("active");
+      tooltip?.classList.remove("no-hover");
     }
-  })
+  }
+});
+
+// Prevent clicks inside the modal from closing it
+preferencesModal.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
