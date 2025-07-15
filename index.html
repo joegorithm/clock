@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <title id="title">Clock</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+</head>
+<body>
+    <div class="clock">
+        <div class="number one"><div class="numeral">1</div></div>
+        <div class="number two"><div class="numeral">2</div></div>
+        <div class="number three"><div class="numeral">3</div></div>
+        <div class="number four"><div class="numeral">4</div></div>
+        <div class="number five"><div class="numeral">5</div></div>
+        <div class="number six"><div class="numeral">6</div></div>
+        <div class="number seven"><div class="numeral">7</div></div>
+        <div class="number eight"><div class="numeral">8</div></div>
+        <div class="number nine"><div class="numeral">9</div></div>
+        <div class="number ten"><div class="numeral">10</div></div>
+        <div class="number eleven"><div class="numeral">11</div></div>
+        <div class="number twelve"><div class="numeral">12</div></div>
+        <div class="axle black"></div>
+        <div class="hand hour" data-hour-hand></div>
+        <div class="hand minute" data-minute-hand></div>
+        <div class="second-hand-shadow">
+            <div class="hand second" data-second-hand></div>
+            <div class="hand second-end" data-second-end-hand></div>
+            <div class="axle red"></div>
+        </div>
+        <div class="axle white"></div>
+    </div>
+    <div id="preferences-button-container" class="tooltip">
+        <button id="preferences-button">
+            <svg xmlns="http://www.w3.org/2000/svg" id="preferences-symbol" viewBox="0 0 24 24">
+                <path d="M1,4.75H3.736a3.728,3.728,0,0,0,7.195,0H23a1,1,0,0,0,0-2H10.931a3.728,3.728,0,0,0-7.195,0H1a1,1,0,0,0,0,2ZM7.333,2a1.75,1.75,0,1,1-1.75,1.75A1.752,1.752,0,0,1,7.333,2Z"/>
+                <path d="M23,11H20.264a3.727,3.727,0,0,0-7.194,0H1a1,1,0,0,0,0,2H13.07a3.727,3.727,0,0,0,7.194,0H23a1,1,0,0,0,0-2Zm-6.333,2.75A1.75,1.75,0,1,1,18.417,12,1.752,1.752,0,0,1,16.667,13.75Z"/>
+                <path d="M23,19.25H10.931a3.728,3.728,0,0,0-7.195,0H1a1,1,0,0,0,0,2H3.736a3.728,3.728,0,0,0,7.195,0H23a1,1,0,0,0,0-2ZM7.333,22a1.75,1.75,0,1,1,1.75-1.75A1.753,1.753,0,0,1,7.333,22Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" id="exit-symbol" viewBox="3 3 18 18">
+                <path d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
+            </svg>
+        </button>
+        <span class="tooltiptext">Preferences</span>
+    </div>
+    <div id="preferences-modal">
+        <div class="modal-header">
+            <span class="modal-header-text">Preferences</span>
+        </div>
+        <div class="modal-content">
+            <!-- Settings go here -->
+
+            <div class="preferences-theme">
+                <legend>Theme</legend>
+
+                <div class="preferences-list-item">
+                    <input type="radio" id="light" name="theme" value="light" checked />
+                    <label class="preferences-list-label preferences-list-label-light" for="light">
+                        <svg class="preferences-list-label-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/>
+                        </svg>
+                        Light
+                        <!-- <img src="image/light-theme.png" style="width: 200px"> -->
+                    </label>
+                </div>
+                
+
+                <div class="preferences-list-item">
+                    <input type="radio" id="dark" name="theme" value="dark" />
+                    <label class="preferences-list-label preferences-list-label-dark" for="dark">
+                        <svg class="preferences-list-label-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
+                        </svg>
+                        Dark
+                        <!-- <img src="image/dark-theme.png" style="width: 200px"> -->
+                    </label>
+                </div>
+                
+                <div class="preferences-list-item">
+                    <input type="radio" id="night" name="theme" value="night" />
+                    <label class="preferences-list-label preferences-list-label-night" for="night">
+                        <svg class="preferences-list-label-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"/>
+                        </svg>
+                        Night
+                    </label>
+                </div>
+
+                <div class="preferences-list-item">
+                    <input type="radio" id="vintage" name="theme" value="vintage" />
+                    <label class="preferences-list-label preferences-list-label-vintage" for="vintage">
+                        <svg class="preferences-list-label-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M32 192L32 48c0-8.8 7.2-16 16-16l64 0c8.8 0 16 7.2 16 16l0 40c0 4.4 3.6 8 8 8l32 0c4.4 0 8-3.6 8-8l0-40c0-8.8 7.2-16 16-16l64 0c8.8 0 16 7.2 16 16l0 40c0 4.4 3.6 8 8 8l32 0c4.4 0 8-3.6 8-8l0-40c0-8.8 7.2-16 16-16l64 0c8.8 0 16 7.2 16 16l0 144c0 10.1-4.7 19.6-12.8 25.6L352 256l16 144L80 400 96 256 44.8 217.6C36.7 211.6 32 202.1 32 192zm176 96l32 0c8.8 0 16-7.2 16-16l0-48c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 48c0 8.8 7.2 16 16 16zM22.6 473.4L64 432l320 0 41.4 41.4c4.2 4.2 6.6 10 6.6 16c0 12.5-10.1 22.6-22.6 22.6L38.6 512C26.1 512 16 501.9 16 489.4c0-6 2.4-11.8 6.6-16z"/></svg>
+                        Vintage
+                    </label>
+                </div>
+            </div>
+            
+            <div class="preferences-second-hand">
+                <legend>Second Hand</legend>
+                <div class="preferences-list-item preferences-list-item-second-hand-visibility">
+                    <input type="checkbox" id="second-hand-visibility" name="second-hand-visibility" checked />
+                    <label class="preferences-list-label-toggle preferences-list-label-second-hand-visibility" for="second-hand-visibility">
+                        <div class="preferences-list-toggle-option preferences-list-toggle-option-hide">
+                            <svg class="preferences-list-label-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"/>
+                            </svg>
+                            Hide
+                        </div>
+                        <div class="preferences-list-toggle-option preferences-list-toggle-option-show">
+                            <svg class="preferences-list-label-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+                            </svg>
+                        Show
+                        </div>
+                    </label>
+                </div>
+                <div class="preferences-list-item">
+                    <input type="radio" id="second-hand-ticking" name="second-hand-movement" value="ticking" />
+                    <label class="preferences-list-label preferences-list-label-ticking" for="second-hand-ticking">
+                        <svg class="preferences-list-label-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m22.965 20.179c.178.809-.334 1.609-1.143 1.787-.05.011-1.714.527-4.822.826v-1.792c0-3.411-1.589-5-5-5-.552 0-1 .448-1 1s.448 1 1 1c2.299 0 3 .701 3 3v1.936c-.774.039-1.603.064-2.501.064-2.283 0-5.769-.026-7.947-.524-.326.354-.833.524-1.552.524-1.383 0-2-.617-2-2s.617-2 2-2c.201 0 .382.017.551.044.343-5.104 2.547-8.223 6.697-9.446.714 2.793 2.939 4.402 6.252 4.402.928 0 2.693-.002 4.375-.475.072.808.125 1.793.125 2.986 0 .627-.048 1.495-.144 2.59.196-.039.316-.065.322-.066.811-.177 1.609.335 1.786 1.144zm-4.072-16.69c-.091-.039-1.51-.635-3.397-1.06-2.498-.679-6.035-1.428-9.496-1.428-.417 0-.792.26-.937.651-.146.392-.033.833.283 1.105.198.171.423.348.642.524-.571.267-1.115.575-1.596.943-.295.226-.44.596-.378.962s.322.667.675.782c2.782.911 5.167 1.018 7.446 1.031 0 0 1.865.001 1.865.001.552 0 1 .448 1 1s-.448 1-1 1h-1.824c.458 1.981 1.896 3 4.324 3 2.271 0 6.5 0 6.5-3.5 0-2.349-2.076-4.215-4.107-5.011z"/>
+                        </svg>
+                        Ticking
+                    </label>
+                </div>
+                <div class="preferences-list-item">
+                    <input type="radio" id="second-hand-sweeping" name="second-hand-movement" value="sweeping" checked />
+                    <label class="preferences-list-label preferences-list-label-sweeping" for="second-hand-sweeping">
+                        <svg class="preferences-list-label-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="m24,9c0,1.103-.897,2-2,2h-5.899c-.144,0-.3.01-.451.015-.122.873-.395,2-.948,3.44-.237.617-1.28.776-1.418.13-.299-1.397-.686-2.284-1.057-2.849-1.084.463-2.114,1.185-2.904,2.331-.898,1.302-1.546,3.148-1.75,4.858,1.656.673,2.967,2.096,3.396,3.818.169.681-.397,1.351-1.09,1.245-3.153-.481-4.38-2.737-4.38-2.737,0,0-1.189,2.26-4.38,2.737-.693.104-1.259-.566-1.09-1.246.398-1.601,1.56-2.938,3.05-3.661-.465-1.37-1.081-3.64-1.081-6.082,0-3.048.628-5.467,1.652-7.355-.718-1.273-1.783-2.683-3.379-3.946C-.451,1.127.394-.081,1.313.004c2.643.244,4.674.905,6.174,1.608,1.877-1.123,4.008-1.612,6.014-1.612,5.112,0,7.991,3.377,8.438,7,1.103,0,2.062.897,2.062,2Z"/>
+                        </svg>
+                        Sweeping
+                    </label>
+                </div>
+                <!-- <div class="preferences-list-item"> -->
+                    <!-- <label class="preferences-list-label-range" for="second-hand-hue">Second Hand Hue:</label> -->
+                    <!-- <input type="range" id="second-hand-hue" name="second-hand-hue" min="0" max="360" value="0" step="1"> -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js" defer></script>
+</body>
+</html>

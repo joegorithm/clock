@@ -1,0 +1,718 @@
+/* Debugging tool */
+/* *,
+*::before,
+*::after {
+    outline: 1px dashed rgb(0, 255, 0);
+} */
+
+/* CSS Variables */
+:root {
+    --ui-font: "Rubik", sans-serif;
+    --number-font: "Rubik", sans-serif;
+
+    /* Modal */
+    --modal-background-color: #1c1d24;
+    --modal-element-hover-color: #2a2b32;
+    --modal-foreground-color: #ffffff;
+}
+
+/* Theme Variables */
+/* Light Theme */
+[data-theme="light"] {
+    /* Clock */
+    --background-color: #c4c4c4;
+    --face-color: #ffffff;
+    --number-color: #303030;
+    --hand-color: #000000;
+    --second-hand-color: #e9b300;
+    --minor-tick-color: #90909c;
+    --major-tick-color: #000000;
+
+    /* Preferences Button */
+    --preferences-button-background-hover-color: #ffffff;
+    --preferences-button-icon-color: #000000;
+    --preferences-button-icon-active-color: rgba(0, 0, 0, 0.8);
+
+    .clock .numeral {
+        transform: rotate(calc(-30deg * var(--number)));
+    }
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --background-color: #000;
+    --face-color: #1c1d24;
+    --number-color: #efefef;
+    --hand-color: #ffffff;
+    --second-hand-color: rgb(91, 116, 255);
+    --minor-tick-color: #484a54;
+    --major-tick-color: #efefef;
+
+    /* Preferences Button */
+    --preferences-button-background-hover-color: #1c1d24;
+    --preferences-button-icon-color: #ffffff;
+    --preferences-button-icon-active-color: rgba(255, 255, 255, 0.8);
+
+    .clock .numeral {
+        transform: rotate(calc(-30deg * var(--number)));
+    }
+}
+
+/* Night Theme */
+[data-theme="night"] {
+    --background-color: #000000;
+    --face-color: rgb(16, 0, 0);
+    --number-color: #ff0000;
+    --hand-color: #820202;
+    --second-hand-color: #ff0000;
+    --minor-tick-color: rgba(255, 0, 0, 0.3);
+    --major-tick-color: #ff0000;
+
+    /* Preferences Button */
+    --preferences-button-background-hover-color: rgba(255, 0, 0, 0.15);
+    --preferences-button-icon-color: #ff0000;
+    --preferences-button-icon-active-color: rgba(255, 0, 0, 0.8);
+
+    .clock .numeral {
+        transform: rotate(calc(-30deg * var(--number)));
+    }
+}
+
+/* Vintage Theme */
+[data-theme="vintage"] {
+    --background-color: #fce7cb; /* Light beige background */
+    --face-color: #e8c290; /* Burlywood for clock face */
+    --number-color: #633b1f; /* SaddleBrown for numbers */
+    --hand-color: #412714; /* Dark brown for hands */
+    --second-hand-color: #cd853f; /* Peru for second hand */
+    --minor-tick-color: rgba(139, 69, 19, 0.5); /* Brown with transparency for minor ticks */
+    --major-tick-color: #633b1f; /* SaddleBrown for major ticks */
+
+    /* Preferences Button */
+    --preferences-button-background-hover-color: rgba(222, 184, 135, 0.2); /* Light hover effect */
+    --preferences-button-icon-color: #8b4513; /* SaddleBrown for icon */
+    --preferences-button-icon-active-color: rgba(139, 69, 19, 0.8); /* Darker brown for active icon */
+
+    --number-font: "Girassol", serif;
+}
+
+/* General Properties */
+body {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--background-color);
+    transition: background-color 300ms ease;
+}
+
+/* Clock Face */
+.clock {
+    position: relative;
+    margin: auto;
+    width: min(90vw, 90vh); /* Clock size constrained to fit the screen */
+    height: min(90vw, 90vh); /* Ensures it's a perfect circle */
+    background-color: var(--face-color);
+    border-radius: 50%;
+    transition: background-color 300ms ease;
+}
+
+/* Tick Marks */
+.tick {
+    width: 0.75%;
+    height: 3%;
+    border-radius: 0.5em;
+    background: var(--minor-tick-color);
+    position: absolute;
+    top: 47%;
+    left: 49.625%;
+    transform-origin: center bottom;
+    transform: rotate(calc(var(--i) * 6deg + 18deg)) translateY(-1525%);
+    z-index: 1;
+    transition: background-color 300ms ease;
+}
+
+/* Major Tick Marks */
+.tick:nth-child(5n) {
+    width: 1%;
+    height: 4%; /* Longer for hour marks */
+    background: var(--major-tick-color);
+    top: 46%;
+    left: 49.5%;
+    transform: rotate(calc(var(--i) * 6deg + 18deg)) translateY(-1122%);
+    transition: background-color 300ms ease;
+}
+
+/* Numbers */
+.clock .number {
+    position: absolute;
+    font-family: var(--number-font), sans-serif;
+    font-size: min(12vw, 12vh);
+    font-weight: 600; /* font-weight: Use a value from 300 to 900 */
+    color: var(--number-color);
+    inset: 5%;
+    width: 90%;
+    height: 90%;
+    text-align: center;
+    transform: rotate(calc(30deg * var(--number)));
+    z-index: 2;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+
+    transition: color 300ms ease;
+}
+
+.clock .one {--number: 1;}
+.clock .two {--number: 2;}
+.clock .three {--number: 3;}
+.clock .four {--number: 4;}
+.clock .five {--number: 5;}
+.clock .six {--number: 6;}
+.clock .seven {--number: 7;}
+.clock .eight {--number: 8;}
+.clock .nine {--number: 9;}
+.clock .ten {--number: 10;}
+.clock .eleven {--number: 11;}
+
+.clock .numeral {
+    transition: transform 300ms ease;
+}
+
+
+
+/* Hands */
+.clock .hand {
+    --rotation: 0;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
+    border-radius: 25px;
+    z-index: 3;
+
+    transition: background-color 300ms ease;
+}
+
+.clock .hand.second {
+    width: 1%;
+    height: 48.5%;
+    transform-origin: bottom;
+    transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
+    background-color: var(--second-hand-color);
+    z-index: 4;
+    box-shadow: 0 0 12px #0000003e;
+
+}
+
+.clock .hand.second-end {
+    width: 1%;
+    height: 8%;
+    transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg + 180deg));
+    transform-origin: bottom;
+    background-color: var(--second-hand-color);
+    z-index: 4;
+    box-shadow: 0 0 12px #0000003e;
+}
+
+
+
+.clock .hand.minute {
+    width: 4%;
+    height: 47.75%;
+    background-color: var(--hand-color);
+    box-shadow: 0 0 5px #0000003e;
+}
+
+.clock .hand.hour {
+    width: 4%;
+    height: 32%;
+    background-color: var(--hand-color);
+    box-shadow: 0 0 5px #0000003e;
+}
+
+/* Axle */
+.axle {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 4;
+    transition: background-color 300ms ease;
+}
+
+.axle.black {
+    background-color: var(--hand-color);
+    width: 6%;
+    height: 6%;
+}
+
+.axle.red {
+    background-color: var(--second-hand-color);
+    width: 4%;
+    height: 4%;
+}
+
+.axle.white {
+    background-color: var(--face-color);
+    width: 2.25%;
+    height: 2.25%;
+    z-index: 5;
+}
+
+.tooltip {
+    display: inline-block;
+    position: relative;
+}
+  
+.tooltip .tooltiptext {
+    font-family: var(--ui-font), sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    visibility: hidden;
+    width: 120px;
+    background-color: #1c1d24;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    margin-left: -60px;
+    /* transition: visibility 0s; */
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+  
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #1c1d24 transparent;
+}
+  
+.tooltip:hover .tooltiptext {
+    transition-delay: 0.6s;
+    visibility: visible;
+}
+
+.tooltip.no-hover:hover .tooltiptext {
+    transition-delay: 0s;
+    visibility: hidden;
+}
+
+
+
+
+
+/* Preferences Button */
+#preferences-button-container {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 7;
+}
+
+#preferences-button {
+    background-color: transparent;
+    fill: var(--preferences-button-icon-color);
+    border: none;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 15px;
+}
+  
+#preferences-button:hover {
+    background-color: var(--preferences-button-background-hover-color);
+}
+
+#preferences-button:active {
+    fill: var(--preferences-button-icon-active-color);
+}
+
+#preferences-button.active {
+    background-color: var(--modal-background-color);
+    fill: var(--modal-foreground-color);
+}
+
+#preferences-button.active:hover {
+    background-color: var(--modal-element-hover-color);
+}
+
+#preferences-symbol {
+    display: block;
+}
+
+#preferences-symbol.active {
+    display: none;
+}
+
+#exit-symbol {
+    display: none;
+}
+
+#exit-symbol.active {
+    display: block;
+}
+
+
+
+/* Modal */
+#preferences-modal {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 70px; /* Start with button dimensions */
+    height: 70px; /* Start with button dimensions */
+    background-color: var(--modal-background-color);
+    font-family: var(--ui-font), sans-serif;
+    font-size: 0px;
+    color: rgba(255, 255, 255, 0);
+    box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 35px; /* Match button */
+    transition: top 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        right 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        width 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        height 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        border-radius 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        font-size 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        color 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        visibility 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        box-shadow 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1);
+    /* overflow: hidden; Prevent content overflow during animation */
+    visibility: hidden; /* Hidden by default */
+    z-index: 6;
+}
+
+#preferences-modal.active {
+    top: 30px;
+    right: 30px;
+    width: 300px; /* Expanded modal width */
+    height: 500px; /* Expanded modal height */
+    border-radius: 40px;
+    font-size: 30px;
+    color: #ffffff;
+    visibility: visible;
+    /* transition: all 0.5s ease; */
+}
+
+#preferences-modal.active .modal-content {
+    height: 22rem;
+}
+
+.modal-header {
+    text-align: left;
+    padding: 1.5rem 2rem;
+}
+
+.modal-header-text {
+    text-align: left;
+    align-items: left;
+    left: 0px;
+    font-weight: 500;
+    padding: 5px;
+}
+
+/* Modal Content */
+.modal-content {
+    padding: 0.5rem;
+    opacity: 0; /* Hidden during transition */
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 25px;
+    /* filter: blur(4px); */
+    height: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    /* Temporary - block selecting */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+
+    overflow: auto;
+    border-radius: 1rem;
+    transition: opacity 0.3s ease, height 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1);
+}
+
+#preferences-modal.active .modal-content {
+    opacity: 1; /* Fade in when modal is fully expanded */
+}
+
+#coming-soon-label {
+    position: relative;
+    top: -130px;
+    font-weight: 400;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    text-shadow: rgb(255, 0, 0) 0 0 20px, rgb(0, 0, 0) 2px 2px 4px;
+}
+
+.preferences-theme, .preferences-second-hand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.preferences-list-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1rem;
+}
+
+.preferences-list-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    fill: white;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.preferences-list-item:hover .preferences-list-label {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.preferences-list-label-light {
+    color: rgb(255, 238, 0);
+    fill: rgb(255, 238, 0);
+}
+
+.preferences-list-item:has(input[type="radio"]:checked) .preferences-list-label-light {
+    background-color: rgba(255, 238, 0, 0.2);
+    fill: rgb(255, 238, 0);
+    outline: 0.2rem solid rgb(255, 238, 0);
+}
+
+.preferences-list-label-dark {
+    color: rgb(91, 116, 255);
+    fill: rgb(91, 116, 255);
+}
+
+.preferences-list-item:has(input[type="radio"]:checked) .preferences-list-label-dark {
+    background-color: rgba(91, 116, 255, 0.2);
+    fill: rgb(91, 116, 255);
+    outline: 0.2rem solid rgb(91, 116, 255);
+}
+
+.preferences-list-label-night {
+    color: rgb(255, 0, 0);
+    fill: rgb(255, 0, 0);
+}
+
+.preferences-list-item:has(input[type="radio"]:checked) .preferences-list-label-night {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: rgb(255, 0, 0);
+    fill: rgb(255, 0, 0);
+    outline: 0.2rem solid rgb(255, 0, 0);
+}
+
+.preferences-list-label-vintage {
+    color: rgb(255, 166, 98);
+    fill: rgb(255, 166, 98);
+}
+
+.preferences-list-item:has(input[type="radio"]:checked) .preferences-list-label-vintage {
+    background-color: rgba(231, 112, 28, 0.2);
+    fill: rgb(255, 166, 98);
+    outline: 0.2rem solid rgb(255, 166, 98);
+}
+
+.preferences-list-label-icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+input[type="radio"] {
+    position: absolute;
+    top: -0.2rem;
+    left: -0.3rem;
+    appearance: none;
+    width: 15.8rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+}
+
+legend {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1rem;
+    color: gray;
+}
+
+.preferences-list-item:has(input[type="radio"]:checked) .preferences-list-label-ticking {
+    background-color: rgba(255, 255, 255, 0.2);
+    fill: rgb(255, 255, 255);
+    outline: 0.2rem solid rgb(255, 255, 255);
+}
+
+.preferences-list-item:has(input[type="radio"]:checked) .preferences-list-label-sweeping {
+    background-color: rgba(255, 255, 255, 0.2);
+    fill: rgb(255, 255, 255);
+    outline: 0.2rem solid rgb(255, 255, 255);
+}
+
+#second-hand-visibility {
+    position: absolute;
+    top: -0.2rem;
+    left: -0.3rem;
+    appearance: none;
+    width: 15.8rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+}
+
+.preferences-list-label-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    fill: white;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.preferences-list-item-second-hand-visibility {
+    margin-bottom: 1rem;
+}
+
+.preferences-list-label-second-hand-visibility {
+    position: relative;
+}
+
+.preferences-list-toggle-option {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    width: 50%;
+    justify-content: center;
+}
+
+.preferences-list-label-second-hand-visibility::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 50%;
+    /* width: 50%; */
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    fill: rgb(255, 255, 255);
+    outline: 0.2rem solid rgb(255, 255, 255);
+    border-radius: 1rem;
+    transition: left 200ms ease, right 300ms ease;
+}
+
+.preferences-list-item:has(input[type="checkbox"]:checked) .preferences-list-label-second-hand-visibility::after {
+    left: 50%;
+    right: 0;
+    transition: left 300ms ease, right 200ms ease;
+}
+
+.preferences-list-toggle-option-show {
+    opacity: 0.7;
+    transition: opacity 300ms ease;
+}
+
+.preferences-list-toggle-option-hide {
+    opacity: 1;
+    transition: opacity 300ms ease;
+}
+
+.preferences-list-item:has(input[type="checkbox"]:checked) .preferences-list-toggle-option-show {
+    opacity: 1;
+}
+
+.preferences-list-item:has(input[type="checkbox"]:checked) .preferences-list-toggle-option-hide {
+    opacity: 0.7;
+}
+
+/* #second-hand-hue {
+    
+} */
+
+/* input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4rem;
+    background: linear-gradient(to right, 
+        hsl(0, 100%, 50%),
+        hsl(60, 100%, 50%),
+        hsl(120, 100%, 50%),
+        hsl(180, 100%, 50%),
+        hsl(240, 100%, 50%),
+        hsl(300, 100%, 50%),
+        hsl(360, 100%, 50%)
+    );
+    border-radius: 0.7rem;
+    outline: none;
+} */
+
+/* Thumb Styling */
+/* input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.5rem;
+    height: 4rem;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    outline: 3px solid var(--modal-foreground-color);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 1.5rem;
+    height: 4rem;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    outline: 3px solid var(--modal-foreground-color);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+} */
+
+/* Hover and Focus States */
+/* input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:focus::-webkit-slider-thumb {
+    transform: scale(1.1);
+}
+
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:focus::-moz-range-thumb {
+    transform: scale(1.1);
+} */
