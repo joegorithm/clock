@@ -1,5 +1,4 @@
 // Clock ----------------------------
-
 let secondHandMovement = localStorage.getItem('secondHandMovement') || "sweeping"; // Load from localStorage or default to sweeping
 let clockInterval = setInterval(setClock, 16);
 
@@ -146,56 +145,6 @@ secondHandMovementRadios.forEach(radio => {
 
 
 
-// // Second Hand Hue -------------------
-// const secondHandHueInput = document.getElementById("second-hand-hue");
-
-// // Initialize second hand hue on page load
-// function initializeSecondHandHue() {
-//   const savedTheme = localStorage.getItem('theme') || 'light';
-//   const savedHue = localStorage.getItem("secondHandHue") || "0";
-  
-//   // Only enable hue control for light and dark themes
-//   if (savedTheme === 'light' || savedTheme === 'dark') {
-//     secondHandHueInput.disabled = false;
-//     secondHandHueInput.style.display = 'block';
-//     secondHandHueInput.value = savedHue;
-//     applySecondHandHue(savedHue);
-//   } else {
-//     secondHandHueInput.disabled = true;
-//     secondHandHueInput.style.display = 'none';
-//     // Clear any hue rotation for night/vintage themes
-//     clearSecondHandHue();
-//   }
-// }
-
-// // Function to apply hue to second hand elements
-// function applySecondHandHue(hue) {
-//   const secondHandElements = document.querySelectorAll('.hand.second, .hand.second-end, .axle.red');
-//   secondHandElements.forEach(element => {
-//     element.style.filter = `hue-rotate(${hue}deg)`;
-//   });
-// }
-
-// // Function to clear hue rotation
-// function clearSecondHandHue() {
-//   const secondHandElements = document.querySelectorAll('.hand.second, .hand.second-end, .axle.red');
-//   secondHandElements.forEach(element => {
-//     element.style.filter = 'none';
-//   });
-// }
-
-// // Call initialization when page loads
-// initializeSecondHandHue();
-
-// secondHandHueInput.addEventListener("input", (e) => {
-//   const hue = e.target.value;
-//   applySecondHandHue(hue);
-//   // Save hue preference
-//   localStorage.setItem("secondHandHue", hue);
-//   console.log(`Second hand hue set to: ${hue}`);
-// });
-
-
 // Theme Selection -------------------
 const themes = ['light', 'dark', 'night', 'vintage'];
 
@@ -212,6 +161,18 @@ function updateClockNumbers(isVintageTheme) {
     const number = index + 1;
     numeral.textContent = isVintageTheme ? romanNumerals[number] : number;
   });
+}
+
+// Function to update background image based on theme
+function updateBackgroundImage(isVintageTheme) {
+  const clockElement = document.querySelector(".clock");
+  if (isVintageTheme) {
+    clockElement.style.backgroundImage = "url('image/oak-wood.jpg')";
+    clockElement.style.backgroundSize = "cover";
+    clockElement.style.backgroundPosition = "center";
+  } else {
+    clockElement.style.backgroundImage = "none";
+  }
 }
 
 // Initialize theme on page load
@@ -231,11 +192,7 @@ function initializeTheme() {
   // Update numbers and background for vintage theme
   const isVintageTheme = savedTheme === 'vintage';
   updateClockNumbers(isVintageTheme);
-  if (isVintageTheme) {
-    document.querySelector(".clock").style.backgroundImage = "url('image/oak-wood.jpg')";
-    document.querySelector(".clock").style.backgroundSize = "cover";
-    document.querySelector(".clock").style.backgroundPosition = "center";
-  }
+  updateBackgroundImage(isVintageTheme);
 }
 
 // Call initialization when page loads
@@ -251,30 +208,7 @@ themes.forEach(theme => {
       // Update numbers based on theme
       const isVintageTheme = theme === 'vintage';
       updateClockNumbers(isVintageTheme);
-
-      // Update hue slider availability based on theme
-      if (theme === 'light' || theme === 'dark') {
-        secondHandHueInput.disabled = false;
-        secondHandHueInput.style.display = 'block';
-        // Restore saved hue for light/dark themes
-        const savedHue = localStorage.getItem("secondHandHue") || "0";
-        secondHandHueInput.value = savedHue;
-        applySecondHandHue(savedHue);
-      } else {
-        secondHandHueInput.disabled = true;
-        secondHandHueInput.style.display = 'none';
-        // Clear hue rotation for night/vintage themes
-        clearSecondHandHue();
-      }
-
-      // Only if vintage theme is selected, set the background image
-      if (isVintageTheme) {
-        document.querySelector(".clock").style.backgroundImage = "url('image/oak-wood.jpg')";
-        document.querySelector(".clock").style.backgroundSize = "cover";
-        document.querySelector(".clock").style.backgroundPosition = "center";
-      } else {
-        document.querySelector(".clock").style.backgroundImage = "none"; // Reset background image for other themes
-      }
+      updateBackgroundImage(isVintageTheme);
     }
   });
 });
