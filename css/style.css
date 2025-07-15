@@ -89,7 +89,7 @@
     --major-tick-color: #633b1f; /* SaddleBrown for major ticks */
 
     /* Preferences Button */
-    --preferences-button-background-hover-color: rgba(222, 184, 135, 0.2); /* Light hover effect */
+    --preferences-button-background-hover-color: rgba(211, 175, 128, 0.2); /* Light hover effect */
     --preferences-button-icon-color: #8b4513; /* SaddleBrown for icon */
     --preferences-button-icon-active-color: rgba(139, 69, 19, 0.8); /* Darker brown for active icon */
 
@@ -328,6 +328,7 @@ body {
     top: 40px;
     right: 40px;
     z-index: 7;
+    transition: top 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1), right 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1);
 }
 
 #preferences-button {
@@ -383,40 +384,58 @@ body {
     right: 40px;
     width: 70px; /* Start with button dimensions */
     height: 70px; /* Start with button dimensions */
+    max-height: calc(100dvh - 60px); /* Ensure it doesn't exceed viewport height */
     background-color: var(--modal-background-color);
     font-family: var(--ui-font), sans-serif;
     font-size: 0px;
     color: rgba(255, 255, 255, 0);
     box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 35px; /* Match button */
+    border-radius: 2rem; /* Match button */
     transition: top 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
         right 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
         width 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
-        height 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
+        height 300ms linear(0, 0.008 1.4%, 0.029 2.8%, 0.116 6%, 0.228 9%, 0.602 18%, 0.795 23.7%, 0.866 26.4%, 0.927 29.2%, 0.975 32.1%, 1.011 35.1%, 1.048 40.5%, 1.059 46.9%, 1.005 75.2%, 1),
         border-radius 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
         font-size 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
         color 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
         visibility 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1),
         box-shadow 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1);
-    /* overflow: hidden; Prevent content overflow during animation */
+    overflow: hidden; /* Prevent content overflow during animation */
     visibility: hidden; /* Hidden by default */
     z-index: 6;
+    display: flex;
+    flex-direction: column;
 }
 
 #preferences-modal.active {
     top: 30px;
     right: 30px;
     width: 300px; /* Expanded modal width */
-    height: 500px; /* Expanded modal height */
-    border-radius: 40px;
+    height: 48.9rem; /* Expanded modal height */
+    border-radius: 2.5rem;
     font-size: 30px;
     color: #ffffff;
     visibility: visible;
     /* transition: all 0.5s ease; */
 }
 
+@media (max-width: 30rem) {
+    #preferences-button-container {
+        top: 20px;
+        right: 20px;
+    }
+    #preferences-modal {
+        top: 20px;
+        right: 20px;
+    }
+    #preferences-modal.active {
+        top: 10px;
+        right: 10px;
+    }
+}
+
 #preferences-modal.active .modal-content {
-    height: 22rem;
+    height: 100%;
 }
 
 .modal-header {
@@ -434,25 +453,22 @@ body {
 
 /* Modal Content */
 .modal-content {
-    padding: 0.5rem;
+    padding: 0 0.5rem 0.5rem;
     opacity: 0; /* Hidden during transition */
     font-size: 17px;
     font-weight: 300;
     line-height: 25px;
     /* filter: blur(4px); */
+    /* border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem; */
     height: 0;
 
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-
-    /* Temporary - block selecting */
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+    gap: 0.5rem;
 
     overflow: auto;
-    border-radius: 1rem;
+    /* border-radius: 2rem; */
     transition: opacity 0.3s ease, height 300ms linear(0, 0.243 3.9%, 0.453 7.8%, 0.642 11.9%, 0.803 16.1%, 0.872 18.2%, 0.937 20.4%, 0.995 22.6%, 1.048 24.9%, 1.093 27.2%, 1.132 29.5%, 1.166 31.9%, 1.194 34.4%, 1.212 36.4%, 1.227 38.4%, 1.237 40.4%, 1.245 42.5%, 1.249 44.7%, 1.25 46.9%, 1.248 49.2%, 1.242 51.7%, 1.225 55.9%, 1.2 60.5%, 1.169 65.1%, 1.081 77.6%, 1.057 81.4%, 1.038 84.9%, 1.02 88.8%, 1.009 92.5%, 1.002 96.2%, 1);
 }
 
@@ -460,14 +476,7 @@ body {
     opacity: 1; /* Fade in when modal is fully expanded */
 }
 
-#coming-soon-label {
-    position: relative;
-    top: -130px;
-    font-weight: 400;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    text-shadow: rgb(255, 0, 0) 0 0 20px, rgb(0, 0, 0) 2px 2px 4px;
-}
+
 
 .preferences-theme, .preferences-second-hand {
     display: flex;
@@ -484,6 +493,11 @@ body {
     align-items: center;
     gap: 1rem;
     border-radius: 1rem;
+
+    /* Temporary - block selecting */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .preferences-list-label {
@@ -560,14 +574,15 @@ input[type="radio"] {
     appearance: none;
     width: 15.8rem;
     height: 4rem;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
 }
 
 legend {
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1rem;
-    color: gray;
+    color: #525463;
 }
 
 .preferences-list-item:has(input[type="radio"]:checked) .preferences-list-label-ticking {
@@ -589,7 +604,7 @@ legend {
     appearance: none;
     width: 15.8rem;
     height: 4rem;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
 }
 
 .preferences-list-label-toggle {
@@ -602,6 +617,7 @@ legend {
     width: 100%;
     font-size: 1.2rem;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .preferences-list-item-second-hand-visibility {
@@ -716,3 +732,46 @@ input[type="range"]:hover::-moz-range-thumb,
 input[type="range"]:focus::-moz-range-thumb {
     transform: scale(1.1);
 } */
+
+.credits-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.credits {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #525463;
+    font-weight: 500;
+}
+
+.credits-link {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    height: 2.5rem;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 200ms ease, border 200ms ease, box-shadow 200ms ease;
+}
+
+.credits-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.credits-link svg {
+    width: 1.25rem;
+}
