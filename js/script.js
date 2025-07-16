@@ -23,7 +23,7 @@ function setClock() {
     setRotation(secondEndHand, secondsRatio);
 
     // Set title of webpage to current time
-    document.title = currentDate.getHours().toString() + ":" + currentDate.getMinutes().toString().padStart(2, "0") + ":" + currentDate.getSeconds().toString().padStart(2, "0") + " | Clock | JH.codes";
+    document.title = currentDate.getHours().toString() + ":" + currentDate.getMinutes().toString().padStart(2, "0") + ":" + currentDate.getSeconds().toString().padStart(2, "0") + " | clock.jh.codes";
 }
 
 function setRotation(element, rotationRatio) {
